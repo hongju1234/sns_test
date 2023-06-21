@@ -1,4 +1,46 @@
 
+from bs4 import BeautifulSoup
+from selenium import webdriver
+import time
+import sys
+import re
+import math
+import numpy  
+import pandas as pd  
+import xlwt
+
+import random
+import os  
+
+from selenium.webdriver.support.ui import Select
+
+#Step 2. 사용자에게 검색어 키워드를 입력 받습니다.
+print("=" *80)
+print("블로그 크롤러 : 여러건의 네이버 블로그 정보 추출하여 저장하기")
+print("=" *80)
+
+query_txt = input('크롤링할 키워드는 무엇입니까?: ')
+include_w = input('결과에서 반드시 포함하는 단어를 입력하세요: ')
+exclude_w = input('결과에서 제외할 단어를 입력하세요: ')
+start_date = input('조회 시작일자 입력: ')
+end_date = input('조회 종료일자 입력: ')
+cnt = int(input('크롤링 할 건수는 몇건입니까?: '))
+# 학습목표 1: 현재 크롤링 시점의 날짜로 폴더 이름을 자동으로 생성하기
+f_dir = input("결과 파일을 저장할 폴더명만 쓰세요(예:c:\\temp\\):")
+
+
+# 저장될 파일위치와 이름을 지정합니다
+n = time.localtime()
+s = '%04d-%02d-%02d-%02d-%02d-%02d' % (n.tm_year, n.tm_mon, n.tm_mday, n.tm_hour, n.tm_min, n.tm_sec)
+
+os.makedirs(f_dir+s+'-'+query_txt)
+os.chdir(f_dir+s+'-'+query_txt)
+
+ff_name=f_dir+s+'-'+query_txt+'\\'+s+'-'+query_txt+'.txt'
+#fc_name=f_dir+s+'-'+query_txt+'\\'+s+'-'+query_txt+'.csv'
+fx_name=f_dir+s+'-'+query_txt+'\\'+s+'-'+query_txt+'.xls'
+
+
 #Step 3. 크롬 드라이버를 사용해서 웹 브라우저를 실행합니다.
 
 s_time = time.time( )
